@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>
+            Arabic Characters to Number
+        </title>
+    </head>
+    <body>
+
+        <h2>Arabic Characters to Number</h2>
+
+        <label for="text">Text:</label><br>
+        <textarea id="text" name="text" rows="10" cols="30"
+            oninput="calculate()"></textarea>
+
+        <div id="result"></div>
+
+        <script>
+            const charactersMap = new Map([
+            ['ا',1],['أ',1],['ى',1],['ب',2],['ج',3],['د',4],['ه',5],['و',6],['ز',7],['ح',8],['ط',9],['ي',1],['ك',2],['ل',3],['م',4],['ن',5],['س',6],['ع',7],['ف',8],['ص',9],['ق',1],['ر',2],['ش',3],['ت',4],['ة',4],['ث',5],['خ',6],['ذ',7],['ض',8],['ظ',9],['غ',1], 
+            ]);
+            function calculate() {
+                var text = document.getElementById("text");
+                var result = document.getElementById("result");
+                var charArray = [...text.value]
+                var intArray = []
+                charArray.forEach(element => {
+                    matchedNumber = charactersMap.get(element)
+                    
+                    if(matchedNumber !== undefined) {
+                        intArray.push(matchedNumber)
+                    } else if(element >= '0' && element <= '9'){
+                        intArray.push(parseInt(element))
+                    }
+                });
+                
+
+                result.innerHTML = summer(arraySummer(intArray));
+            }
+            
+            function summer(bigNum) {
+                if(bigNum > 9){
+                    var intArr = Array.from(String(bigNum), num => Number(num));
+                    return summer(arraySummer(intArr))
+                }
+                return bigNum;
+            }
+
+            function arraySummer(intArr) {
+                sum = 0;  
+                intArr.forEach(n => sum += n);
+                return sum
+            }
+        </script>
+    </body>
+</html>
